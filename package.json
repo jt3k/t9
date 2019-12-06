@@ -1,0 +1,24 @@
+{
+  "name": "t9",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel ./src/index.html -d dist/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jt3k/t9.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "GPL3",
+  "bugs": {
+    "url": "https://github.com/jt3k/t9/issues"
+  },
+  "homepage": "https://github.com/jt3k/t9#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  }
+}
