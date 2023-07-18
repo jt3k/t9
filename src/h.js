@@ -35,20 +35,34 @@ export const wordToGraphData = (str, initialGraph = {}) =>
     index: Number(index),
   }));
 
-export const decomposer = (obj, _path = '', _result = {}) => {
-  Object.entries(obj).forEach(async ([key, value]) => {
-    const path = _path + '.' + key;
-    _result[path] = {
+const decompose = (obj, path = "", result = [], stack = []) => {
+  Object.entries(obj).forEach(([key, value]) => {
+    const fullPath = path ? `${path}.${key}` : key;
+    if (typeof value === "object" && value !== null) {
+      // Передотвращение переходов по циклическим ссылкам
+      const seenObject = stack.find((item) => item.value === value);
+      if (seenObject) {
+        value = `[Circular ${seenObject.fullPath}]`;
+      } else {
+        stack.push({ value, fullPath });
+        decompose(value, fullPath, result, stack);
+      }
+    }
+
+    result.push({
       parent: obj,
       key,
       value,
-      path
-    };
-
-    const isObj = typeof value === 'object' && value !== null;
-    if (isObj) {
-      decomposer(value, path, _result);
-    }
+      path: fullPath,
+    });
   });
-  return _result;
+  return result;
 };
+
+const gg = { a: 1, b: {}, bar: 3 };
+gg.a = gg.b;
+const o = {};
+gg.c = o;
+gg.b.d = o;
+let dec = decompose(gg);
+console.log(dec);
