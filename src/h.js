@@ -36,8 +36,9 @@ export const wordToGraphData = (str, initialGraph = {}) =>
   }));
 
 export const decomposer = (parent, path = '', result = [], stack = []) => {
-  /* Is DOM element */
+  /* DOM element */
   if (parent instanceof Element || parent instanceof Document) {
+    // TODO: хватать все аттрибуты и текстовый контент элементов
     parent = parent.childNodes;
   }
 
